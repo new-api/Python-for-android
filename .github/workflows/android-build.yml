@@ -33,9 +33,17 @@ jobs:
         pip3 install --upgrade pip
         pip3 install buildozer cython
 
-    - name: Initialize Buildozer
-      run: |
-        buildozer init
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 30
+        build-tools: 30.0.3
+        components: |
+          platform-tools
+          build-tools;30.0.3
+          tools
+          extras;android;m2repository
+          extras;google;m2repository
 
     - name: Build APK
       run: |
