@@ -1,0 +1,54 @@
+name: Android Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential ccache zlib1g-dev git
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install pip dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install cython python-for-android
+
+    - name: Build APK
+      run: |
+        p4a apk --private /wallpaperPushTask/ \
+                --package=wallpaper.push.task \
+                --name "wallpaperPushTask" \
+                --version=0.1 \
+                --bootstrap=sdl2 \
+                --requirements=python3,kivy
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: YourAppName-APK
+        path: path/to/your/generated.apk
