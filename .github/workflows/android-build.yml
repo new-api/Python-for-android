@@ -36,7 +36,7 @@ jobs:
     - name: Install pip dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install cython python-for-android
+        pip install --upgrade cython python-for-android
 
     - name: Build APK
       run: |
@@ -46,7 +46,7 @@ jobs:
                 --version=0.1 \
                 --bootstrap=sdl2 \
                 --requirements=python3,kivy \
-                --arch armeabi-v7a,arm64-v8a  # 这里使用空格而不是等号
+                --arch=armeabi-v7a,arm64-v8a  # 使用等号而不是空格
 
     - name: List files
       run: ls -l /wallpaperPushTask/  # 列出生成目录中的文件，以确保 APK 存在
