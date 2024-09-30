@@ -46,10 +46,13 @@ jobs:
                 --version=0.1 \
                 --bootstrap=sdl2 \
                 --requirements=python3,kivy \
-                --arch armeabi-v7a,arm64-v8a  # 可能去掉等号
+                --arch armeabi-v7a,arm64-v8a  # 这里使用空格而不是等号
+
+    - name: List files
+      run: ls -l /wallpaperPushTask/  # 列出生成目录中的文件，以确保 APK 存在
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
         name: wallpaperPushTask-APK
-        path: /wallpaperPushTask/wallpaperPushTask.apk  # 确保这是正确的 APK 路径
+        path: /wallpaperPushTask/wallpaperPushTask*.apk  # 使用通配符确保能找到 APK
