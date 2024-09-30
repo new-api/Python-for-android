@@ -48,7 +48,7 @@ jobs:
                 --requirements=python3,kivy
 
     - name: Upload APK
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # 使用 v3 版本
       with:
-        name: YourAppName-APK
-        path: path/to/your/generated.apk
+        name: wallpaperPushTask-APK
+        path: /wallpaperPushTask/
